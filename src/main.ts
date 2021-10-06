@@ -18,6 +18,7 @@ async function bootstrap() {
   .setVersion('1.0')
   .addTag('Endpoints')
   .build();
+
   app.use(bodyParser.json({limit: '50mb'}));
   app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
   const document = SwaggerModule.createDocument(app, config);

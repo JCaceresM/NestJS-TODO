@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreateTodoDto } from './dto/create-todo.dto';
@@ -17,22 +17,30 @@ constructor(
   }
 
   findAll() {
-    return `This action returns all todos`;
+    return this.TodoRepository.find()
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} todo`;
+    return this.TodoRepository.find({todo_id:id})
   }
 
-  update(id: number, updateTodoDto: UpdateTodoDto) {
-    return `This action updates a #${id} todo`;
+  async update(id: number, updateTodoDto: UpdateTodoDto) {
+    const todo = await this.TodoRepository.findOneOrFail(id);
+    if (!todo.user_id && todo.status != 'A') {
+      throw new HttpException({ status: 404, message: 'Todo no found' }, 404);
+    }
+    await this.TodoRepository.update(id, updateTodoDto);
+    return await this.TodoRepository.findOne(id);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} todo`;
+  async remove(id: number) {
+    const todo = await this.TodoRepository.findOneOrFail(id);
+    if (!todo.user_id && todo.status != 'A') {
+      throw new HttpException({ status: 404, message: 'Todo no found' }, 404);
+    }
+    await this.TodoRepository.update(id, {IsDisabled:true});
+    return `TODO Deleted`
   }
 }
-function TodoEntity(TodoEntity: any) {
-  throw new Error('Function not implemented.');
-}
+
 
