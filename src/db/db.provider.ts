@@ -12,7 +12,6 @@ import { DBConfigEnum } from '../config/config.keys';
     TypeOrmModule.forRootAsync({
       imports: [DatabaseEntitiesModule,ConfigDBModule],
       useFactory: async (_dbConfigService: AppConfigService) => {
-        console.log(_dbConfigService)
         if (_dbConfigService.get(DBConfigEnum.NODE_ENV) === 'production') {
           return {
             type: 'postgres' as DatabaseType,

@@ -12,11 +12,14 @@ export class Todo {
   status: string;
 
   @Column()
-  Description: string;
+  description: string;
 
   @Column()
   user_id: number;
 
   @Column()
   created_on: Date;
+
+  @Column()
+  IsDisabled: boolean;
 }

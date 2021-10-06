@@ -10,6 +10,8 @@ export class AppConfigService {
       DB_PORT: process.env.DB_PORT,
       APP_PORT: process.env.APP_PORT,
       NODE_ENV: process.env.NODE_ENV,
+      SECRET: process.env.SECRET,
+      EXPIRESIN: process.env.EXPIRESIN,
     };
   }
 
