@@ -1,27 +1,33 @@
+import { ApiProperty } from '@nestjs/swagger';
 import { IsString, IsDate, IsEmail, } from 'class-validator';
-import { RoleDto } from '../../roles/dto/role.dto';
 import { RoleEntity } from '../../roles/entities/role.entity';
 
 export class CreateUserDto {
   @IsString()
+  @ApiProperty()
   user_id: number;
 
-
   @IsString()
+  @ApiProperty()
   username: string;
 
   @IsString()
+  @ApiProperty()
   password: string;
 
   @IsEmail()
+  @ApiProperty()
   email: string;
 
   @IsDate()
+  @ApiProperty()
   created_on: Date;
  
+  @ApiProperty()
   permission: RoleEntity[]
 
   @IsDate()
+  @ApiProperty()
   last_login: Date;
 }
 

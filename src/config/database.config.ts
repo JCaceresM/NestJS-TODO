@@ -23,9 +23,11 @@ function typeormModuleOptions(): TypeOrmModuleOptions {
     cli: {
       migrationsDir: 'src/db/migration',
     },
+
      ssl: {
       rejectUnauthorized: false
     },
+
     // Activar SOLO MANUALMENTE en DESARROLLO SI ES NECESARIO (DESACTIVAR EN PRODUCCION).
     synchronize: false,
     logging: true,

@@ -2,7 +2,7 @@ import {  Injectable } from '@nestjs/common';
 import { UsersService } from 'src/db/api/users/users.service';
 import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
-import { Login } from 'src/common/types/login.interfaces';
+import { Login } from 'src/common/types/login.types';
 import { JWTExpirationToken } from 'src/common/utils/date/extimation.date';
 import { GetUserDto } from 'src/db/api/users/dto/get-user.dto';
 import { AppConfigService } from 'src/config/getterConfig.service';
