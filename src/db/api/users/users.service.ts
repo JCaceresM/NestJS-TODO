@@ -1,6 +1,7 @@
 import { HttpException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, getRepository, Equal } from 'typeorm';
+import { RolesService } from '../roles/roles.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { GetUserDto } from './dto/get-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -11,8 +12,11 @@ export class UsersService {
   constructor(
     @InjectRepository(User)
     private userRepository: Repository<User>,
+    private rolesServices: RolesService,
   ) {}
-  create(createUserDto: CreateUserDto) {
+  async create(createUserDto: CreateUserDto) {
+    const defaultRoles = await this.rolesServices.findOneByName('USER');
+    createUserDto = { ...createUserDto, permission: [defaultRoles] };
     return this.userRepository.save(createUserDto);
   }
 
@@ -43,8 +47,8 @@ export class UsersService {
   }
 
   async update(id: number | string, updateUserDto: UpdateUserDto) {
-    const todo = await this.userRepository.findOneOrFail(id);
-    if (!todo.user_id && todo.status != 'A') {
+    const user = await this.userRepository.findOneOrFail(id);
+    if (!user.user_id && user.status != 'A') {
       throw new HttpException({ status: 404, message: 'User no found' }, 404);
     }
     await this.userRepository.update(id, updateUserDto);

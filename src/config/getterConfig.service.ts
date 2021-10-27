@@ -1,17 +1,15 @@
-
 export class AppConfigService {
   private readonly configService: { [key: string]: string };
   constructor() {
     this.configService = {
-      HOST: process.env.HOST,
-      DB_NAME: process.env.DB_NAME,
-      DB_USER: process.env.DB_USER,
-      DB_PASS: process.env.DB_PASS,
-      DB_PORT: process.env.DB_PORT,
-      APP_PORT: process.env.APP_PORT,
+      TYPEORM_CONFIG: 'database.config',
+      PORT: process.env.PORT,
       NODE_ENV: process.env.NODE_ENV,
       SECRET: process.env.SECRET,
       EXPIRESIN: process.env.EXPIRESIN,
+      DEFAULT_USER_PASSWORD: process.env.DEFAULT_USER_PASSWORD,
+      DEFAULT_USER_NAME: process.env.DEFAULT_USER_NAME,
+      DEFAULT_USER_EMAIL: process.env.DEFAULT_USER_EMAIL,
     };
   }
 

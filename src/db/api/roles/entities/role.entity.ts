@@ -1,8 +1,9 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, JoinTable, ManyToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { User } from '../../users/entities/user.entity';
 
 @Entity('roles')
 export class RoleEntity {
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn('uuid')
   readonly role_id: number;
 
   @Column()
@@ -11,6 +12,8 @@ export class RoleEntity {
   @Column()
   readonly status: string;
 
+  @ManyToMany(() => User, (user: User) => user.permission)
+  public user: User[];
 
   constructor(role_id: number , role_name: string, status:string) {
     this.role_id = role_id;

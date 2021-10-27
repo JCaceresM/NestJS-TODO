@@ -26,7 +26,7 @@ constructor(
 
   async update(id: number, updateTodoDto: UpdateTodoDto) {
     const todo = await this.TodoRepository.findOneOrFail(id);
-    if (!todo.user_id && todo.status != 'A') {
+    if ( todo.status != 'A') {
       throw new HttpException({ status: 404, message: 'Todo no found' }, 404);
     }
     await this.TodoRepository.update(id, updateTodoDto);
@@ -35,7 +35,7 @@ constructor(
 
   async remove(id: number) {
     const todo = await this.TodoRepository.findOneOrFail(id);
-    if (!todo.user_id && todo.status != 'A') {
+    if ( todo.status != 'A') {
       throw new HttpException({ status: 404, message: 'Todo no found' }, 404);
     }
     await this.TodoRepository.update(id, {IsDisabled:true});

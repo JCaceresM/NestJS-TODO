@@ -1,14 +1,10 @@
 import { Module } from '@nestjs/common';
-import { AccountRulesModule } from './Tables/account-rules/account-rules.module';
-import { RolesModule } from './Tables/roles/roles.module';
-import { TodosModule } from './Tables/todos/todos.module';
-import { UsersModule } from './Tables/users/users.module';
-
+import { RolesModule } from './api/roles/roles.module';
+import { TodosModule } from './api/todos/todos.module';
+import { UsersModule } from './api/users/users.module';
 
 @Module({
-  imports: [UsersModule,TodosModule,  RolesModule,
-    AccountRulesModule,],
-  exports: [UsersModule, TodosModule, RolesModule,
-    AccountRulesModule,],
+  imports: [UsersModule, TodosModule, RolesModule],
+  exports: [UsersModule, TodosModule, RolesModule],
 })
 export class DatabaseEntitiesModule {}
