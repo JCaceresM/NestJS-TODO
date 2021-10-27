@@ -9,6 +9,7 @@ export const initSwagger = (app: INestApplication) => {
       'Esta es una API Creada con NestJS con un CRUD básico para un TODO list.',
     ).addTag('Endpoints')
     .build();
+    
   const document = SwaggerModule.createDocument(app, swaggerConfig);
   SwaggerModule.setup('/docs', app, document);
 };

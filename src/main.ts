@@ -9,7 +9,7 @@ import { generateTypeormConfigFile } from './scripts';
 import { ConfigService } from '@nestjs/config';
 import { initSwagger } from './app.swagger';
 import { AppConfigService } from './config/getterConfig.service';
-import { Logger } from '@nestjs/common';
+import { Logger, ValidationPipe } from '@nestjs/common';
 import setDefaultUser from './scripts/setDefaultUser';
 
 
@@ -22,8 +22,11 @@ async function bootstrap() {
   app.setGlobalPrefix(API_PREFIX);
   app.enableCors();
   app.use(helmet());
-  
+  app.useGlobalPipes(new ValidationPipe());
+
+
   initSwagger(app)
+  
   generateTypeormConfigFile(config, appConfig);
   setDefaultUser(config)
   app.use(bodyParser.json({limit: '50mb'}));

@@ -1,4 +1,6 @@
-import { Controller, Post, UseGuards, Request, UsePipes } from '@nestjs/common';
+import { Controller, Post, UseGuards, Request, UsePipes, Body } from '@nestjs/common';
+import { ApiResponse } from '@nestjs/swagger';
+import { Credentials } from 'src/common/types/login.types';
 import { JoiValidationPipe } from 'src/common/utils/validations/JoinValidationPipe';
 import { schemaLogin } from 'src/schemaValidation/login/login.schema';
 import { AuthService } from './auth.service';
@@ -9,9 +11,10 @@ export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
   @UseGuards(LocalAuthGuard)
-  @UsePipes(new JoiValidationPipe(schemaLogin))
   @Post('login')
-  async login(@Request() req) {
+  @ApiResponse({ status: 401, description: 'Unauthorized.'})
+  @ApiResponse({ status: 201, description: 'authenticated.'})
+  async login(@Body(new JoiValidationPipe(schemaLogin)) body: Credentials, @Request() req) {
     return this.authService.login(req.user);
   }
 }
