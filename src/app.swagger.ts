@@ -3,10 +3,10 @@ import { INestApplication } from '@nestjs/common';
 
 export const initSwagger = (app: INestApplication) => {
   const swaggerConfig = new DocumentBuilder()
-    .setTitle('MyCrud TODO')
+   .setTitle('Super API')
     .addBearerAuth()
     .setDescription(
-      'Esta es una API Creada con NestJS con un CRUD básico para un TODO list.',
+      'Esta es una API Creada con NestJS con muchos feactures como , usuarios, roles, todos, entre otras',
     ).addTag('Endpoints')
     .build();
     
