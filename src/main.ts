@@ -5,24 +5,32 @@ import * as helmet from 'helmet';
 import { SwaggerModule, DocumentBuilder } from "@nestjs/swagger";
 import * as bodyParser from 'body-parser';
 import { API_PREFIX } from './common/constants/global/globalContansts';
+import { generateTypeormConfigFile } from './scripts';
+import { ConfigService } from '@nestjs/config';
+import { initSwagger } from './app.swagger';
+import { AppConfigService } from './config/getterConfig.service';
+import { Logger } from '@nestjs/common';
+import setDefaultUser from './scripts/setDefaultUser';
 
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
+  const config = app.get(ConfigService);
+  const appConfig = app.get(AppConfigService)
+  const logger = new Logger('Bootstrap');
+  
   app.setGlobalPrefix(API_PREFIX);
   app.enableCors();
   app.use(helmet());
-  const config = new DocumentBuilder()
-  .setTitle('nestjs')
-  .setDescription('This is NestJS app')
-  .setVersion('1.0')
-  .addTag('Endpoints')
-  .build();
-
+  
+  initSwagger(app)
+  generateTypeormConfigFile(config, appConfig);
+  setDefaultUser(config)
   app.use(bodyParser.json({limit: '50mb'}));
   app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
-  const document = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('api-swagger', app, document);
+  
   await app.listen(AppModule.port||3001);
+  logger.log(`Server is running at ${await app.getUrl()}`);
+
 }
 bootstrap();

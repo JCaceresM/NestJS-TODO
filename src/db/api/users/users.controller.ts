@@ -16,7 +16,6 @@ import {
   schemaUpdateUser,
   schemaNewUser,
 } from 'src/schemaValidation/users/users.schema';
-import * as bcrypt from 'bcrypt';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { hasRoles } from 'src/auth/decorators/roles.decorator';
 import { RolesGuard } from 'src/auth/guards/roles.guards';
@@ -29,11 +28,9 @@ export class UsersController {
   async create(
     @Body(new JoiValidationPipe(schemaNewUser)) createUserDto: CreateUserDto,
   ) {
-    const saltOrRounds = 10;
-    const hash = await bcrypt.hash(createUserDto.password, saltOrRounds);
+    
     createUserDto = {
       ...createUserDto,
-      password: hash,
       created_on: new Date(),
     };
     return this.usersService.create(createUserDto);

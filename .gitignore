@@ -1,6 +1,8 @@
 # compiled output
 /dist
 /node_modules
+package-lock.json
+ormconfig.json
 
 # Logs
 logs
@@ -38,3 +40,4 @@ lerna-debug.log*
 .env
 /.env.development
 .env.development
+!.env.example

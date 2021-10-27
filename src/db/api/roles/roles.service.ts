@@ -1,7 +1,6 @@
 import { forwardRef, HttpException, Inject, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Equal, Repository } from 'typeorm';
-import { AccountRulesService } from '../account-rules/account-rules.service';
 import { CreateRoleDto } from './dto/create-role.dto';
 import { UpdateRoleDto } from './dto/update-role.dto';
 import { RoleEntity } from './entities/role.entity';
@@ -34,6 +33,15 @@ export class RolesService {
       throw new HttpException({ status: 404, message: 'User no found' }, 404);
     }
     return this.mapper.entityToDto(role);
+  }
+  async findOneByName(name: string) {
+    const [role] = await this.roleRepository.find({
+      where: { role_name: name, status: Equal('A') },
+    });
+    if (!role) {
+      throw new HttpException({ status: 404, message: 'User no found' }, 404);
+    }
+    return role;
   }
 
   async update(id: number, updateRoleDto: UpdateRoleDto) {

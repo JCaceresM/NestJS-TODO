@@ -2,7 +2,7 @@ import { Body, HttpException, Injectable, UnauthorizedException } from '@nestjs/
 import { PassportStrategy } from '@nestjs/passport';
 import { Strategy } from 'passport-local';
 import { JoiValidationPipe } from 'src/common/utils/validations/JoinValidationPipe';
-import { GetUserDto } from 'src/db/Tables/users/dto/get-user.dto';
+import { GetUserDto } from 'src/db/api/users/dto/get-user.dto';
 import { schemaLogin } from 'src/schemaValidation/login/login.schema';
 import { AuthService } from '../auth.service';
 

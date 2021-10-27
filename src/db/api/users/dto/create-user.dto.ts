@@ -1,8 +1,10 @@
-import { IsString, IsDate, IsEmail } from 'class-validator';
+import { IsString, IsDate, IsEmail, } from 'class-validator';
+import { RoleDto } from '../../roles/dto/role.dto';
+import { RoleEntity } from '../../roles/entities/role.entity';
 
 export class CreateUserDto {
   @IsString()
-  user_id: string;
+  user_id: number;
 
 
   @IsString()
@@ -16,8 +18,8 @@ export class CreateUserDto {
 
   @IsDate()
   created_on: Date;
-
  
+  permission: RoleEntity[]
 
   @IsDate()
   last_login: Date;

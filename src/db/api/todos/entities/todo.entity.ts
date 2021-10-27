@@ -1,4 +1,5 @@
-import { Entity, Column, PrimaryGeneratedColumn, } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, } from 'typeorm';
+import { User } from '../../users/entities/user.entity';
 
 @Entity('todos')
 export class Todo {
@@ -14,8 +15,8 @@ export class Todo {
   @Column()
   description: string;
 
-  @Column()
-  user_id: number;
+  @ManyToOne(() => User, (author: User) => author.TODO)
+  public author: User;
 
   @Column()
   created_on: Date;

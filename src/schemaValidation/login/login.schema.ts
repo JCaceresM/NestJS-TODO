@@ -6,7 +6,5 @@ import {
 export const schemaLogin = Joi.object({
   username: requiredString,
   password: requiredString,
-
-
 });
 
