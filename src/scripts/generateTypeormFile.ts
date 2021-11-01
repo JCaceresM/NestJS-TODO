@@ -6,7 +6,7 @@ import { AppConfigService } from "src/config/getterConfig.service";
 
 /**
  * This script will generate the ormconfig.json based on your Global Config
- * @param config Config Service for accessing the ENV Variables
+ * @param config Config Service for accessing the ENV Variables JCM
  */
 const generateTypeormConfigFile = (config: ConfigService, appConfigService: AppConfigService) => {
   const typeormConfig = config.get(appConfigService.get(ConfigEnum.TYPEORM_CONFIG));
