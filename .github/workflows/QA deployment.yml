@@ -9,7 +9,7 @@ on:
 env:
   SERVICE_NAME: qa-api-nestjs
   REGION: us-east1
-  PROJECT_NAME: JCM
+  PROJECT_NAME: jcm
   REGISTRY_BASE: us-east1-docker.pkg.dev/${{ 123 }}
 
 jobs:
