@@ -6,84 +6,9 @@ on:
       - master
   workflow_dispatch:
 
-env:
-  SERVICE_NAME: qa-api-nestjs
-  REGION: us-east1
-  PROJECT_NAME: jcm
-  REGISTRY_BASE: us-east1-docker.pkg.dev/${{ 123 }}
-
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Inject slug/short variables
-        uses: rlespinasse/github-slug-action@v3.x
-
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v1
-
-      - name: Login to GAR
-        uses: docker/login-action@v1
-        with:
-          registry: ghcr.io
-          username: ${{ github.repository_owner }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-          
-      - name: Build and push
-        id: docker_build
-        uses: docker/build-push-action@v2
-        with:
-          push: true
-          tags: ${{ env.REGISTRY_BASE }}/${{ env.PROJECT_NAME }}/${{ env.SERVICE_NAME }}:${{ github.sha }}
-      - name: Image digest
-        run: echo ${{ steps.docker_build.outputs.digest }}
-
-  # deploy:
-  #   needs: ['build']
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - uses: actions/checkout@v2
-
-  #     - name: Setup env
-  #       env:
-  #         IMAGE: ${{ env.REGISTRY_BASE }}/${{ env.PROJECT_NAME }}/${{ env.SERVICE_NAME }}:${{ github.sha }}
-  #         SERVICE_NAME: ${{ env.SERVICE_NAME }}
-  #         NODE_ENV: production
-  #         REGION: ${{ env.REGION }}
-  #         CPU: 1000m
-  #         MEMORY: 256Mi
-  #         maxScale: '1'
-  #         minScale: '0'
-  #         containerConcurrency: 100
-  #         ingress: internal-and-cloud-load-balancing
-  #         DB_PORT: ${{ secrets.DB_PORT }}
-  #         DB_READ_PASS: ${{ secrets.DB_READ_PASS }}
-  #         DB_USER: ${{ secrets.DB_USER }}
-  #         DB_NAME: ${{ secrets.QA_DB_NAME }}
-  #         DB_CONNECTION_READ: ${{ secrets.DB_CONNECTION_READ }}
-  #         DB_CONNECTION_NAME: ${{ secrets.DB_CONNECTION_NAME }}
-  #         EMAIL_KEY: ${{ secrets.EMAIL_KEY }}
-  #         PASS_PHRASE_WALLET: ${{ secrets.PASS_PHRASE_WALLET }}
-  #         ENCRYPTION_KEY: ${{ secrets.ENCRYPTION_KEY }}          
-  #         SENDGRID_EMAIL: ${{ secrets.SENDGRID_EMAIL }}
-  #         THROTTLE_LIMIT: ${{ secrets.THROTTLE_LIMIT }}
-  #         THROTTLE_TTL: ${{ secrets.THROTTLE_TTL }}
-  #         TOKEN_CENTROSVAC: ${{ secrets.QA_TOKEN_CENTROSVAC }}
-  #         API_CENTROSVAC: ${{ secrets.QA_API_CENTROSVAC }}
-  #         CORS_ORIGIN: ${{ secrets.CORS_ORIGIN }}
-  #         USERS: ${{ secrets.USERS }}
-  #         SECRET_JWT: ${{ secrets.SECRET_JWT }}
-  #         URL_FRONTEND: ${{ secrets.QA_URL_FRONTEND }}
-  #         DB_CONNECTION_WRITE: ${{ secrets.DB_CONNECTION_WRITE }}
-  #         VPC_ACCESS_CONNECTOR: projects/${{ secrets.PROJECT_ID }}/locations/us-east1/connectors/vpc-us-east1
-  #       run: eval "echo \"$(cat service.yaml)\"" > service.yaml
-
-  #     - id: deploy
-  #       uses: google-github-actions/deploy-cloudrun@main
-  #       with:
-  #         metadata: service.yaml
-  #         credentials: ${{ secrets.GCP_SA_JSON_KEY }}
-  #         region: ${{ env.REGION }}
-
-  #     - id: test_url
-  #       run: curl "${{ steps.deploy.outputs.url }}"
+      - name: Checkout
+        uses: actions/checkout@v2
