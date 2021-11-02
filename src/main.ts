@@ -2,7 +2,6 @@ import { NestFactory } from '@nestjs/core';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { AppModule } from './app.module';
 import * as helmet from 'helmet';
-import { SwaggerModule, DocumentBuilder } from "@nestjs/swagger";
 import * as bodyParser from 'body-parser';
 import { API_PREFIX } from './common/constants/global/globalContansts';
 import { generateTypeormConfigFile } from './scripts';
