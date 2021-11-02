@@ -32,7 +32,7 @@ jobs:
           context: ./
           file: ./Dockerfile
           push: true
-          tags: ${{ env.PROJECT_NAME }}/${{ github.sha }}:latest
+          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/${{ env.PROJECT_NAME }}/${{ github.sha:7 }}:latest
 
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
