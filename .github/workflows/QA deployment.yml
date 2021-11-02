@@ -5,7 +5,8 @@ on:
     branches:
       - master
   workflow_dispatch:
-
+env:
+  PROJECT_NAME: nestjs-api
 
 jobs:
   build:
@@ -31,7 +32,7 @@ jobs:
           context: ./
           file: ./Dockerfile
           push: true
-          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/${{ github.sha }}:latest
+          tags: ${{ env.PROJECT_NAME }}/${{ github.sha }}:latest
 
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
