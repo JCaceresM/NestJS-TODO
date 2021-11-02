@@ -3,7 +3,7 @@ name: Deployment to QA
 on:
   push:
     branches:
-      - master
+      - qa
   workflow_dispatch:
 env:
   PROJECT_NAME: nestjs-api
