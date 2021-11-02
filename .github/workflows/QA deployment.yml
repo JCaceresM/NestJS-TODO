@@ -6,6 +6,7 @@ on:
       - master
   workflow_dispatch:
 
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -30,7 +31,7 @@ jobs:
           context: ./
           file: ./Dockerfile
           push: true
-          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/simplewhale:latest
+          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/${{ github.sha }}:latest
 
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
