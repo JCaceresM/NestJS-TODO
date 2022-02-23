@@ -33,7 +33,7 @@ $ npm install
 ```
 ## Migrations
 ```bash
-$ npm run migration
+$ npm run db:migration:run
 
 ```
 
@@ -55,3 +55,4 @@ $ npm run start:prod
 - TypeORM
 - Postgres
 - NestJS
+- heroku
