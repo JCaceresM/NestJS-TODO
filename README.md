@@ -24,7 +24,7 @@
 
 ## Description
 
-This is a API of todo with auth and roles. the porpurse of this project is to inprove my skills in auth migrations and roles with nestJS.
+This is a API of todo with auth and roles. the porpurse of this project is to inprove my skills in auth, migrations, roles, and ci/cd.
 
 ## Installation
 
